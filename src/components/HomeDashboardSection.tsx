@@ -49,10 +49,10 @@ export default function HomeDashboardSection({
     { id: 'quiz', key: 'quiz_done', label: 'Take Aptitude Assessment', desc: 'Identify your baseline academic stream', checked: false, tab: 'quiz' },
     { id: 'discovery', key: 'discovery_done', label: 'Run AI Career Discovery', desc: 'Get personalized Gemini predictions', checked: false, tab: 'wizard' },
     { id: 'chat', key: 'chat_done', label: 'Consult Compass AI', desc: 'Have a chat with your bilingual mentor', checked: false, tab: 'chat' },
-    { id: 'explorer', key: 'explorer_done', label: 'Explore Careers & Courses', desc: 'Browse pathways, salaries & syllabus', checked: false, tab: 'explorer' },
-    { id: 'colleges', key: 'colleges_done', label: 'Find Nearby Colleges', desc: 'Map local institutions and hostels', checked: false, tab: 'explorer' },
-    { id: 'scholarships', key: 'scholarships_done', label: 'Check Scholarships', desc: 'Run the AI eligibility schemes checker', checked: false, tab: 'scholarships' },
-    { id: 'report', key: 'report_done', label: 'Download Career Report', desc: 'Generate custom counseling summary PDF', checked: false, tab: 'learning' },
+    { id: 'explorer', key: 'explorer_done', label: 'Explore Careers & Courses', desc: 'Browse pathways, salaries & syllabus', checked: false, tab: 'careers' },
+    { id: 'colleges', key: 'colleges_done', label: 'Find Nearby Colleges', desc: 'Map local institutions and hostels', checked: false, tab: 'colleges' },
+    { id: 'scholarships', key: 'scholarships_done', label: 'Check Scholarships', desc: 'Run the AI eligibility schemes checker', checked: false, tab: 'resources' },
+    { id: 'report', key: 'report_done', label: 'Download Career Report', desc: 'Generate custom counseling summary PDF', checked: false, tab: 'resources' },
   ]);
 
   useEffect(() => {
@@ -171,7 +171,7 @@ export default function HomeDashboardSection({
     e.preventDefault();
     if (!searchQuery.trim()) return;
     localStorage.setItem('career_compass_global_query', searchQuery);
-    onNavigateToTab('explorer');
+    onNavigateToTab('colleges');
   };
 
   return (

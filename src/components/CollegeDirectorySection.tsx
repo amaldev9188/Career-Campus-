@@ -50,6 +50,13 @@ export default function CollegeDirectorySection() {
       } catch {}
     }
 
+    // Read global search query passed from the home dashboard
+    const globalQuery = localStorage.getItem('career_compass_global_query');
+    if (globalQuery) {
+      setSearchQuery(globalQuery);
+      localStorage.removeItem('career_compass_global_query');
+    }
+
     const fetchColleges = async () => {
       try {
         const colRef = collection(db, 'colleges');
@@ -102,9 +109,11 @@ export default function CollegeDirectorySection() {
   const filteredColleges = useMemo(() => {
     return colleges.filter((clg) => {
       const matchesSearch = 
-        clg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        clg.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        clg.popularCourses.some(course => course.toLowerCase().includes(searchQuery.toLowerCase()));
+        (clg.name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+        (clg.address?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+        (clg.popularCourses && Array.isArray(clg.popularCourses) 
+          ? clg.popularCourses.some(course => course && course.toLowerCase().includes(searchQuery.toLowerCase()))
+          : false);
       
       const matchesDistrict = selectedDistrict ? clg.district === selectedDistrict : true;
       const matchesType = selectedType ? clg.type === selectedType : true;
