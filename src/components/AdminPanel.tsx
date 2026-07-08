@@ -90,6 +90,8 @@ export default function AdminPanel() {
     name: '',
     district: 'Thiruvananthapuram',
     type: 'Arts & Science',
+    category: 'Government',
+    imageUrl: '',
     email: '',
     phone: '',
     medium: 'English',
@@ -168,6 +170,8 @@ export default function AdminPanel() {
       name: '',
       district: 'Thiruvananthapuram',
       type: 'Arts & Science',
+      category: 'Government',
+      imageUrl: '',
       email: '',
       phone: '',
       medium: 'English',
@@ -184,6 +188,8 @@ export default function AdminPanel() {
       name: clg.name,
       district: clg.district,
       type: clg.type,
+      category: clg.category || 'Government',
+      imageUrl: clg.imageUrl || '',
       email: clg.email || clg.contactEmail || '',
       phone: clg.phone || clg.contactPhone || '',
       medium: clg.medium || 'English',
@@ -213,6 +219,8 @@ export default function AdminPanel() {
         name: collegeForm.name,
         district: collegeForm.district,
         type: collegeForm.type,
+        category: collegeForm.category as 'Government' | 'Private',
+        imageUrl: collegeForm.imageUrl || '',
         email: collegeForm.email,
         phone: collegeForm.phone,
         contactEmail: collegeForm.email, // backward compatibility
@@ -245,6 +253,30 @@ export default function AdminPanel() {
     } catch (err: any) {
       console.error(err);
       alert('Failed to delete college: ' + err.message);
+    }
+  };
+
+  const handleSyncBaselineColleges = async () => {
+    if (!window.confirm('This will restore all default institutions in the list to their real images and default information. Custom additions will be preserved. Proceed?')) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const { collegesData } = await import('../data/colleges');
+      const { writeBatch, doc } = await import('firebase/firestore');
+      const batch = writeBatch(db);
+      collegesData.forEach((college) => {
+        const collegeRef = doc(db, 'colleges', college.id);
+        batch.set(collegeRef, college);
+      });
+      await batch.commit();
+      triggerNotification('Successfully synchronized colleges list with real campus images!');
+      await fetchAllData();
+    } catch (err: any) {
+      console.error(err);
+      alert('Failed to sync colleges: ' + err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -728,13 +760,23 @@ export default function AdminPanel() {
                       <h3 className="text-lg font-black text-slate-900">Institution Directory Board</h3>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Government Institutes CRUD Controller</p>
                     </div>
-                    <button
-                      onClick={handleOpenAddCollege}
-                      className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-teal-600/10 shrink-0"
-                    >
-                      <Plus className="w-4 h-4" />
-                      Add Institution Doc
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={handleSyncBaselineColleges}
+                        className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer border border-slate-200 shrink-0"
+                        title="Reset & Sync default colleges to real-life images"
+                      >
+                        <Sparkles className="w-4 h-4 text-teal-600 animate-pulse" />
+                        Sync Real Images
+                      </button>
+                      <button
+                        onClick={handleOpenAddCollege}
+                        className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-teal-600/10 shrink-0"
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add Institution Doc
+                      </button>
+                    </div>
                   </div>
 
                   {/* Colleges filter & search controls */}
@@ -788,9 +830,19 @@ export default function AdminPanel() {
                           filteredColleges.map((clg) => (
                             <tr key={clg.id} className="hover:bg-slate-50/50 transition-all">
                               <td className="py-4 px-5">
-                                <div className="space-y-0.5">
-                                  <div className="font-extrabold text-slate-900">{clg.name}</div>
-                                  <div className="text-[10px] text-slate-400 truncate max-w-[240px] font-semibold">{clg.address}</div>
+                                <div className="flex items-center gap-3">
+                                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+                                    <img 
+                                      src={clg.imageUrl || 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=120&auto=format&fit=crop&q=60'} 
+                                      alt="" 
+                                      className="w-full h-full object-cover"
+                                      referrerPolicy="no-referrer"
+                                    />
+                                  </div>
+                                  <div className="space-y-0.5 min-w-0">
+                                    <div className="font-extrabold text-slate-900 truncate max-w-[200px]" title={clg.name}>{clg.name}</div>
+                                    <div className="text-[10px] text-slate-400 truncate max-w-[200px] font-semibold">{clg.address}</div>
+                                  </div>
                                 </div>
                               </td>
                               <td className="py-4 px-5 font-bold text-slate-600">{clg.district}</td>
@@ -805,9 +857,18 @@ export default function AdminPanel() {
                                 </div>
                               </td>
                               <td className="py-4 px-5 space-y-1">
-                                <span className="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-slate-150 text-slate-700 border border-slate-200">
-                                  {clg.type}
-                                </span>
+                                <div className="flex flex-wrap gap-1">
+                                  <span className="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-slate-150 text-slate-700 border border-slate-200">
+                                    {clg.type}
+                                  </span>
+                                  <span className={`inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border ${
+                                    clg.category === 'Private' 
+                                      ? 'bg-amber-50 text-amber-700 border-amber-200' 
+                                      : 'bg-teal-50 text-teal-700 border-teal-200'
+                                  }`}>
+                                    {clg.category || 'Government'}
+                                  </span>
+                                </div>
                                 <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Medium: {clg.medium || 'English'}</div>
                               </td>
                               <td className="py-4 px-5">
@@ -974,7 +1035,7 @@ export default function AdminPanel() {
             </button>
             
             <h3 className="text-xl font-black text-slate-950 mb-6">
-              {editingCollegeId ? 'Edit College Document' : 'Add Government College'}
+              {editingCollegeId ? 'Edit College Document' : 'Add Institution Doc'}
             </h3>
 
             <form onSubmit={handleSaveCollege} className="space-y-4">
@@ -990,7 +1051,7 @@ export default function AdminPanel() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-3">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">District</label>
                   <select
@@ -1013,6 +1074,17 @@ export default function AdminPanel() {
                     {COLLEGE_TYPES.map(t => (
                       <option key={t} value={t}>{t}</option>
                     ))}
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Sector / Category</label>
+                  <select
+                    value={collegeForm.category}
+                    onChange={(e) => setCollegeForm({ ...collegeForm, category: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none"
+                  >
+                    <option value="Government">Government</option>
+                    <option value="Private">Private</option>
                   </select>
                 </div>
               </div>
@@ -1076,6 +1148,33 @@ export default function AdminPanel() {
                   placeholder="e.g. B.Tech Computer Science, B.Tech Electronics"
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:ring-1 focus:ring-teal-500"
                 />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">College Image URL</label>
+                <div className="flex gap-3">
+                  <input
+                    type="url"
+                    value={collegeForm.imageUrl}
+                    onChange={(e) => setCollegeForm({ ...collegeForm, imageUrl: e.target.value })}
+                    placeholder="e.g. https://images.unsplash.com/photo-..."
+                    className="flex-1 px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:ring-1 focus:ring-teal-500"
+                  />
+                  {collegeForm.imageUrl && (
+                    <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
+                      <img 
+                        src={collegeForm.imageUrl} 
+                        alt="Preview" 
+                        className="w-full h-full object-cover" 
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=120&auto=format&fit=crop&q=60';
+                        }}
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  )}
+                </div>
+                <p className="text-[9px] text-slate-400 font-semibold">Paste an Unsplash image URL or any public image web link.</p>
               </div>
 
               <div className="space-y-1">

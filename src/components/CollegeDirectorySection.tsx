@@ -14,8 +14,8 @@ import {
   BookOpen, 
   Filter, 
   X, 
-  ChevronRight,
-  ExternalLink
+  ExternalLink,
+  Sparkles
 } from 'lucide-react';
 
 export default function CollegeDirectorySection() {
@@ -24,6 +24,7 @@ export default function CollegeDirectorySection() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [selectedType, setSelectedType] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(''); // '', 'Government', 'Private'
 
   useEffect(() => {
     const fetchColleges = async () => {
@@ -63,32 +64,19 @@ export default function CollegeDirectorySection() {
       
       const matchesDistrict = selectedDistrict ? clg.district === selectedDistrict : true;
       const matchesType = selectedType ? clg.type === selectedType : true;
+      
+      const categoryVal = clg.category || 'Government';
+      const matchesCategory = selectedCategory ? categoryVal === selectedCategory : true;
 
-      return matchesSearch && matchesDistrict && matchesType;
+      return matchesSearch && matchesDistrict && matchesType && matchesCategory;
     });
-  }, [colleges, searchQuery, selectedDistrict, selectedType]);
+  }, [colleges, searchQuery, selectedDistrict, selectedType, selectedCategory]);
 
   const handleClearFilters = () => {
     setSearchQuery('');
     setSelectedDistrict('');
     setSelectedType('');
-  };
-
-  const getTypeBadgeStyles = (type: College['type']) => {
-    switch (type) {
-      case 'Engineering':
-        return 'bg-blue-50 text-blue-700 border-blue-100';
-      case 'Medical':
-        return 'bg-red-50 text-red-700 border-red-100';
-      case 'Polytechnic':
-        return 'bg-amber-50 text-amber-700 border-amber-100';
-      case 'Arts & Science':
-        return 'bg-indigo-50 text-indigo-700 border-indigo-100';
-      case 'Technical/Vocational':
-        return 'bg-emerald-50 text-emerald-700 border-emerald-100';
-      default:
-        return 'bg-slate-50 text-slate-700 border-slate-100';
-    }
+    setSelectedCategory('');
   };
 
   if (loading) {
@@ -108,11 +96,21 @@ export default function CollegeDirectorySection() {
         <div className="space-y-1">
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-teal-600 uppercase tracking-wider">
             <School className="w-3.5 h-3.5 animate-pulse" />
-            Verified Database
+            Kerala Campus Directory
           </div>
-          <h2 className="text-3xl md:text-5xl serif-italic font-normal text-slate-950">Government College Directory</h2>
+          <h2 className="text-3xl md:text-5xl serif-italic font-normal text-slate-950">
+            {selectedCategory === 'Government' 
+              ? 'Government Institution Hub' 
+              : selectedCategory === 'Private' 
+                ? 'Private Sector Colleges' 
+                : 'Kerala Higher Education Directory'}
+          </h2>
           <p className="text-xs md:text-sm text-slate-500 font-medium max-w-xl">
-            Search and filter authorized government institutions, polytechnics, vocational centers, and colleges in Kerala.
+            {selectedCategory === 'Government' 
+              ? 'Search and filter authorized government institutions, polytechnics, vocational centers, and colleges in Kerala.'
+              : selectedCategory === 'Private'
+                ? 'Discover elite accredited private colleges, self-financing institutions, and technology campuses in Kerala.'
+                : 'Browse verified profiles of both public/government and top-rated private sector colleges in Kerala.'}
           </p>
         </div>
         
@@ -120,6 +118,42 @@ export default function CollegeDirectorySection() {
           <span className="text-[10px] text-teal-700 font-black uppercase tracking-wider block">Available List</span>
           <span className="text-xl font-black text-teal-800">{colleges.length} Institutions</span>
         </div>
+      </div>
+
+      {/* Segmented Category Sector Filter */}
+      <div className="flex bg-slate-100 p-1.5 rounded-2xl max-w-lg w-full border border-slate-200/50">
+        <button
+          onClick={() => setSelectedCategory('')}
+          className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            selectedCategory === ''
+              ? 'bg-white text-slate-900 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'
+          }`}
+        >
+          All Sectors ({colleges.length})
+        </button>
+        <button
+          onClick={() => setSelectedCategory('Government')}
+          className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            selectedCategory === 'Government'
+              ? 'bg-white text-slate-900 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'
+          }`}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+          Government ({colleges.filter(c => (c.category || 'Government') === 'Government').length})
+        </button>
+        <button
+          onClick={() => setSelectedCategory('Private')}
+          className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            selectedCategory === 'Private'
+              ? 'bg-white text-slate-900 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'
+          }`}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+          Private Sector ({colleges.filter(c => c.category === 'Private').length})
+        </button>
       </div>
 
       {/* Search & Filters Controls Panel */}
@@ -159,7 +193,7 @@ export default function CollegeDirectorySection() {
               >
                 <option value="">All Districts ({districtsList.length})</option>
                 {districtsList.map((dist) => {
-                  const count = colleges.filter(c => c.district === dist).length;
+                  const count = colleges.filter(c => c.district === dist && (selectedCategory ? (c.category || 'Government') === selectedCategory : true)).length;
                   return (
                     <option key={dist} value={dist} disabled={count === 0}>
                       {dist} {count > 0 ? `(${count})` : ''}
@@ -178,11 +212,11 @@ export default function CollegeDirectorySection() {
               onChange={(e) => setSelectedType(e.target.value)}
               className="w-full px-3.5 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all text-xs font-semibold text-slate-700"
             >
-              <option value="">All Types ({collegeTypes.length})</option>
+              <option value="">All Types</option>
               {collegeTypes.map((t) => {
-                const count = colleges.filter(c => c.type === t).length;
+                const count = colleges.filter(c => c.type === t && (selectedCategory ? (c.category || 'Government') === selectedCategory : true)).length;
                 return (
-                  <option key={t} value={t}>
+                  <option key={t} value={t} disabled={count === 0}>
                     {t} ({count})
                   </option>
                 );
@@ -192,7 +226,7 @@ export default function CollegeDirectorySection() {
 
           {/* Clean Filters Button / Active Indicators */}
           <div className="flex items-end">
-            {(selectedDistrict || selectedType || searchQuery) ? (
+            {(selectedDistrict || selectedType || searchQuery || selectedCategory) ? (
               <button
                 onClick={handleClearFilters}
                 className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg font-bold text-xs uppercase tracking-wider transition-all border border-rose-100 cursor-pointer"
@@ -217,16 +251,16 @@ export default function CollegeDirectorySection() {
         <span>
           Showing <b className="text-slate-700">{filteredColleges.length}</b> of <b className="text-slate-700">{colleges.length}</b> institutions
         </span>
-        {(selectedDistrict || selectedType || searchQuery) && (
+        {(selectedDistrict || selectedType || searchQuery || selectedCategory) && (
           <span className="text-teal-600 animate-pulse">Filters are Active</span>
         )}
       </div>
 
       {/* College Directory Cards List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <AnimatePresence mode="popLayout">
           {filteredColleges.map((clg, index) => {
-            const badgeStyle = getTypeBadgeStyles(clg.type);
+            const isPrivate = clg.category === 'Private';
             
             return (
               <motion.div
@@ -236,21 +270,42 @@ export default function CollegeDirectorySection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.2, delay: Math.min(index * 0.03, 0.3) }}
-                className="bg-white rounded-[32px] border border-slate-100 p-6 shadow-sm hover:shadow-md hover:border-slate-200 transition-all flex flex-col justify-between space-y-4"
+                className="bg-white rounded-[32px] border border-slate-100 p-6 shadow-sm hover:shadow-md hover:border-slate-200/80 transition-all flex flex-col justify-between space-y-4 group overflow-hidden"
               >
-                {/* Header Information */}
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border shrink-0 ${badgeStyle}`}>
+                {/* College Image Header */}
+                <div className="relative h-48 -mx-6 -mt-6 overflow-hidden rounded-t-[32px] bg-slate-100">
+                  <img 
+                    src={clg.imageUrl || 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=60'} 
+                    alt={clg.name} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent pointer-events-none" />
+                  
+                  {/* Category & Type badges overlaid on image */}
+                  <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+                    <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-sm text-white ${
+                      isPrivate 
+                        ? 'bg-amber-500 border border-amber-400' 
+                        : 'bg-teal-600 border border-teal-500'
+                    }`}>
+                      {clg.category || 'Government'}
+                    </span>
+                    <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-sm bg-slate-900/80 backdrop-blur-md text-white border border-slate-800">
                       {clg.type}
                     </span>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1 shrink-0">
-                      <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
-                      {clg.district}
-                    </span>
                   </div>
-                  
-                  <h3 className="text-base font-extrabold text-slate-900 leading-snug line-clamp-2">
+
+                  {/* District badge overlaid on bottom left of image */}
+                  <div className="absolute bottom-4 left-4 flex items-center gap-1.5 text-white text-xs font-bold drop-shadow-sm">
+                    <MapPin className="w-3.5 h-3.5 text-teal-400" />
+                    {clg.district}
+                  </div>
+                </div>
+
+                {/* Header Information */}
+                <div className="space-y-2 flex-1">
+                  <h3 className="text-base font-extrabold text-slate-900 leading-snug line-clamp-2 group-hover:text-teal-600 transition-colors">
                     {clg.name}
                   </h3>
                   
@@ -261,9 +316,9 @@ export default function CollegeDirectorySection() {
 
                 {/* Popular Course Chips */}
                 {clg.popularCourses && clg.popularCourses.length > 0 && (
-                  <div className="border-t border-b border-slate-100 py-3 space-y-2">
+                  <div className="border-t border-b border-slate-100 py-3.5 space-y-2">
                     <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-                      <BookOpen className="w-3 h-3 text-slate-400" />
+                      <BookOpen className="w-3.5 h-3.5 text-slate-400" />
                       Popular Courses Offered
                     </span>
                     <div className="flex flex-wrap gap-1.5">

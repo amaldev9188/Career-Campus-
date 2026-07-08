@@ -9,6 +9,7 @@ import QuizSection from './components/QuizSection';
 import CareerMapSection from './components/CareerMapSection';
 import CollegeDirectorySection from './components/CollegeDirectorySection';
 import ResourceSection from './components/ResourceSection';
+import FeatureListSection from './components/FeatureListSection';
 import AuthScreen from './components/AuthScreen';
 import AdminChangePassword from './components/AdminChangePassword';
 import AdminPanel from './components/AdminPanel';
@@ -49,7 +50,7 @@ export default function App() {
       if (userProfile.role === 'admin') {
         setActiveTab('admin_panel');
       } else {
-        if (!['profile', 'quiz', 'careers', 'colleges', 'resources'].includes(activeTab)) {
+        if (!['profile', 'quiz', 'careers', 'colleges', 'resources', 'features'].includes(activeTab)) {
           setActiveTab('profile');
         }
       }
@@ -251,7 +252,8 @@ export default function App() {
       { id: 'quiz', label: 'Aptitude Quiz', icon: BrainCircuit, status: recommendedStream ? `Rec: ${recommendedStream}` : 'Not Started' },
       { id: 'careers', label: 'Career Map', icon: Map, status: 'Interactive Paths' },
       { id: 'colleges', label: 'Colleges Directory', icon: School, status: 'Government Lists' },
-      { id: 'resources', label: 'Resources & Timelines', icon: Calendar, status: 'Entrance Hub' }
+      { id: 'resources', label: 'Resources & Timelines', icon: Calendar, status: 'Entrance Hub' },
+      { id: 'features', label: 'Platform Blueprint', icon: Sparkles, status: '35+ Core Modules' }
     ];
   };
 
@@ -475,6 +477,10 @@ export default function App() {
               />
             )}
 
+            {activeTab === 'features' && (
+              <FeatureListSection />
+            )}
+
             {activeTab === 'admin_panel' && userProfile?.role === 'admin' && (
               <AdminPanel />
             )}
@@ -503,7 +509,8 @@ export default function App() {
                    item.id === 'quiz' ? 'Quiz' : 
                    item.id === 'careers' ? 'Careers' : 
                    item.id === 'colleges' ? 'Colleges' : 
-                   item.id === 'resources' ? 'Hub' : 'Admin'}
+                   item.id === 'resources' ? 'Hub' : 
+                   item.id === 'features' ? 'Blueprint' : 'Admin'}
                 </span>
               </button>
             );

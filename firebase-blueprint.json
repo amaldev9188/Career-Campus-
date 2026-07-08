@@ -22,15 +22,21 @@
     },
     "College": {
       "title": "College",
-      "description": "Government college details, location, and courses.",
+      "description": "College details, sector category, location, contact, and courses.",
       "type": "object",
       "properties": {
         "id": { "type": "string" },
         "name": { "type": "string" },
         "district": { "type": "string" },
         "type": { "type": "string" },
+        "category": { "type": "string", "enum": ["Government", "Private"] },
+        "imageUrl": { "type": "string" },
         "contactPhone": { "type": "string" },
         "contactEmail": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "medium": { "type": "string" },
+        "notes": { "type": "string" },
         "website": { "type": "string" },
         "address": { "type": "string" },
         "popularCourses": {

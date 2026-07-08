@@ -10,7 +10,9 @@ export const collegesData: College[] = [
     contactEmail: 'principal@cet.ac.in',
     website: 'https://www.cet.ac.in',
     address: 'Engineering College P.O, Sreekaryam, Thiruvananthapuram - 695016',
-    popularCourses: ['B.Tech Computer Science', 'B.Tech Electronics & Comm', 'B.Tech Mechanical', 'B.Arch Architecture', 'B.Tech Civil']
+    popularCourses: ['B.Tech Computer Science', 'B.Tech Electronics & Comm', 'B.Tech Mechanical', 'B.Arch Architecture', 'B.Tech Civil'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/CET_main_building.JPG'
   },
   {
     id: 'maharajas_ekm',
@@ -21,7 +23,9 @@ export const collegesData: College[] = [
     contactEmail: 'principal@maharajas.ac.in',
     website: 'https://maharajas.ac.in',
     address: 'Park Avenue, Marine Drive, Ernakulam - 682011',
-    popularCourses: ['BA Economics', 'BA English Literature', 'B.Sc Physics', 'B.Sc Chemistry', 'B.Com Finance']
+    popularCourses: ['BA Economics', 'BA English Literature', 'B.Sc Physics', 'B.Sc Chemistry', 'B.Com Finance'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Maharajas_college_ernakulam.jpg'
   },
   {
     id: 'gect_tcr',
@@ -32,7 +36,9 @@ export const collegesData: College[] = [
     contactEmail: 'principal@gectcr.ac.in',
     website: 'https://www.gectcr.ac.in',
     address: 'Ramavarmapuram, Thrissur - 680009',
-    popularCourses: ['B.Tech Computer Science', 'B.Tech Chemical Engineering', 'B.Tech Electrical & Electronics', 'B.Tech Production', 'B.Tech Civil']
+    popularCourses: ['B.Tech Computer Science', 'B.Tech Chemical Engineering', 'B.Tech Electrical & Electronics', 'B.Tech Production', 'B.Tech Civil'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Government_Engineering_College_Thrissur.jpg'
   },
   {
     id: 'victoria_pkd',
@@ -43,7 +49,9 @@ export const collegesData: College[] = [
     contactEmail: 'gvc.pkd@gmail.com',
     website: 'https://www.gvc.ac.in',
     address: 'College Road, Palakkad - 678001',
-    popularCourses: ['B.Sc Mathematics', 'BA English', 'BA History', 'B.Com Co-operation', 'B.Sc Zoology']
+    popularCourses: ['B.Sc Mathematics', 'BA English', 'BA History', 'B.Com Co-operation', 'B.Sc Zoology'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Government_Victoria_College%2C_Palakkad_05.JPG'
   },
   {
     id: 'brennen_knr',
@@ -54,7 +62,9 @@ export const collegesData: College[] = [
     contactEmail: 'brennencollege@gmail.com',
     website: 'https://brennencollege.ac.in',
     address: 'Dharmadam, Thalassery, Kannur - 670106',
-    popularCourses: ['BA Malayalam', 'BA Political Science', 'BA History', 'B.Sc Physics', 'B.Sc Botany']
+    popularCourses: ['BA Malayalam', 'BA Political Science', 'BA History', 'B.Sc Physics', 'B.Sc Botany'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Brennen_College_Frontage.JPG'
   },
   {
     id: 'med_kkd',
@@ -65,7 +75,9 @@ export const collegesData: College[] = [
     contactEmail: 'principalmcc@gmail.com',
     website: 'https://www.govtmedicalcollegekozhikode.ac.in',
     address: 'Medical College Junction, Kozhikode - 673008',
-    popularCourses: ['MBBS', 'BDS Dentistry', 'B.Sc Nursing', 'Bachelor of Physiotherapy (BPT)']
+    popularCourses: ['MBBS', 'BDS Dentistry', 'B.Sc Nursing', 'Bachelor of Physiotherapy (BPT)'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Kozhikode_Medical_College_Main_Building.jpg'
   },
   {
     id: 'med_tvm',
@@ -76,7 +88,9 @@ export const collegesData: College[] = [
     contactEmail: 'principalmct@gmail.com',
     website: 'https://www.tmc.kerala.gov.in',
     address: 'Medical College P.O, Thiruvananthapuram - 695011',
-    popularCourses: ['MBBS', 'B.Pharm Pharmacy', 'B.Sc Nursing', 'B.Sc Optometry']
+    popularCourses: ['MBBS', 'B.Pharm Pharmacy', 'B.Sc Nursing', 'B.Sc Optometry'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Trivandrum_Medical_College_old_block.jpg'
   },
   {
     id: 'cpt_tvm',
@@ -87,7 +101,9 @@ export const collegesData: College[] = [
     contactEmail: 'cpttvm.dtekerala@gmail.com',
     website: 'https://www.cpt.ac.in',
     address: 'Vattiyoorkavu, Thiruvananthapuram - 695013',
-    popularCourses: ['Diploma in Computer Engineering', 'Diploma in Civil Engineering', 'Diploma in Mechanical Engineering', 'Diploma in Electrical & Electronics']
+    popularCourses: ['Diploma in Computer Engineering', 'Diploma in Civil Engineering', 'Diploma in Mechanical Engineering', 'Diploma in Electrical & Electronics'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Central_Polytechnic_College_Vattiyoorkavu_Trivandrum.JPG'
   },
   {
     id: 'gptc_klm_ekm',
@@ -98,7 +114,9 @@ export const collegesData: College[] = [
     contactEmail: 'gptckal@gmail.com',
     website: 'https://www.gptckalamassery.ac.in',
     address: 'HMT Road, Kalamassery, Ernakulam - 683104',
-    popularCourses: ['Diploma in Chemical Engineering', 'Diploma in Automobile Engineering', 'Diploma in Mechanical Engineering', 'Diploma in Electronics']
+    popularCourses: ['Diploma in Chemical Engineering', 'Diploma in Automobile Engineering', 'Diploma in Mechanical Engineering', 'Diploma in Electronics'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Govt_Polytechnic_Kalamassery_Office.JPG'
   },
   {
     id: 'madappally_kkd',
@@ -109,7 +127,9 @@ export const collegesData: College[] = [
     contactEmail: 'gcmadappally@gmail.com',
     website: 'https://gcmadappally.ac.in',
     address: 'Madappally College P.O, Vadakara, Kozhikode - 673102',
-    popularCourses: ['BA English', 'B.Com Finance', 'B.Sc Chemistry', 'B.Sc Physics', 'BA Economics']
+    popularCourses: ['BA English', 'B.Com Finance', 'B.Sc Chemistry', 'B.Sc Physics', 'BA Economics'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Govt_College_Madappally_01.jpg'
   },
   {
     id: 'gptc_kkd',
@@ -120,7 +140,9 @@ export const collegesData: College[] = [
     contactEmail: 'gptckozhikode@gmail.com',
     website: 'https://www.gptckozhikode.ac.in',
     address: 'West Hill, Kozhikode - 673005',
-    popularCourses: ['Diploma in Tool & Die Making', 'Diploma in Computer Engineering', 'Diploma in Civil Engineering', 'Diploma in Mechanical Engineering']
+    popularCourses: ['Diploma in Tool & Die Making', 'Diploma in Computer Engineering', 'Diploma in Civil Engineering', 'Diploma in Mechanical Engineering'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Kozhikode_Government_Polytechnic_College_Entrance.JPG'
   },
   {
     id: 'gec_kkd',
@@ -131,7 +153,9 @@ export const collegesData: College[] = [
     contactEmail: 'principal@geckkd.ac.in',
     website: 'https://www.geckkd.ac.in',
     address: 'Westhill, Kozhikode - 673005',
-    popularCourses: ['B.Tech Computer Science & Design', 'B.Tech Applied Electronics & Instr', 'B.Tech Chemical Engineering', 'B.Tech Mechanical']
+    popularCourses: ['B.Tech Computer Science & Design', 'B.Tech Applied Electronics & Instr', 'B.Tech Chemical Engineering', 'B.Tech Mechanical'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/GECKKD_Campus.jpg'
   },
   {
     id: 'gptc_tcr',
@@ -142,7 +166,9 @@ export const collegesData: College[] = [
     contactEmail: 'gptcthrissur@dtekerala.gov.in',
     website: 'https://www.gptcthrissur.org',
     address: 'Chiyyaram, Thrissur - 680026',
-    popularCourses: ['Diploma in Computer Hardware Maintenance', 'Diploma in Electrical & Electronics', 'Diploma in Civil Engineering', 'Diploma in Mechanical Engineering']
+    popularCourses: ['Diploma in Computer Hardware Maintenance', 'Diploma in Electrical & Electronics', 'Diploma in Civil Engineering', 'Diploma in Mechanical Engineering'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Government_Polytechnic_College_Thrissur_Main_Block.jpg'
   },
   {
     id: 'td_med_alp',
@@ -153,7 +179,9 @@ export const collegesData: College[] = [
     contactEmail: 'tdmcgmc@gmail.com',
     website: 'https://www.tdmc.alappuzha.gov.in',
     address: 'Vandanam, Alappuzha - 688005',
-    popularCourses: ['MBBS', 'B.Sc Nursing', 'Diploma in Medical Laboratory Technology (DMLT)']
+    popularCourses: ['MBBS', 'B.Sc Nursing', 'Diploma in Medical Laboratory Technology (DMLT)'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d2/T._D._Medical_College%2C_Vandanam_01.JPG'
   },
   {
     id: 'rit_ktm',
@@ -164,7 +192,9 @@ export const collegesData: College[] = [
     contactEmail: 'info@rit.ac.in',
     website: 'https://www.rit.ac.in',
     address: 'Nedumangad-Velloor Road, Pampady, Kottayam - 686501',
-    popularCourses: ['B.Tech Computer Science', 'B.Tech Electrical & Electronics', 'B.Tech Mechanical Engineering', 'B.Tech Civil Engineering']
+    popularCourses: ['B.Tech Computer Science', 'B.Tech Electrical & Electronics', 'B.Tech Mechanical Engineering', 'B.Tech Civil Engineering'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/25/RIT_Campus_Kottayam.jpg'
   },
   {
     id: 'gvhs_tcr',
@@ -175,7 +205,9 @@ export const collegesData: College[] = [
     contactEmail: 'thsthrissur@gmail.com',
     website: 'https://vhse.kerala.gov.in',
     address: 'Town Hall Road, Thrissur - 680020',
-    popularCourses: ['Vocational Higher Secondary in Automobile Technology', 'VHSE Computer IT', 'Draftsman Mechanical Trade']
+    popularCourses: ['Vocational Higher Secondary in Automobile Technology', 'VHSE Computer IT', 'Draftsman Mechanical Trade'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Govt_Boys_HSS_Thrissur.jpg'
   },
   {
     id: 'gvhss_ekm',
@@ -186,7 +218,9 @@ export const collegesData: College[] = [
     contactEmail: 'gvhsskalamassery@gmail.com',
     website: 'https://vhse.kerala.gov.in',
     address: 'Kalamassery P.O, Ernakulam - 683104',
-    popularCourses: ['VHSE Livestock Management', 'VHSE Medical Laboratory Technician (MLT)', 'VHSE Food Processing Technology']
+    popularCourses: ['VHSE Livestock Management', 'VHSE Medical Laboratory Technician (MLT)', 'VHSE Food Processing Technology'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/09/Govt_HSS_Kalamassery.jpg'
   },
   {
     id: 'gov_clg_ktm',
@@ -197,7 +231,9 @@ export const collegesData: College[] = [
     contactEmail: 'gckottayam@gmail.com',
     website: 'https://gckottayam.ac.in',
     address: 'Nattakom, Kottayam - 686013',
-    popularCourses: ['BA Economics', 'BA English Literature', 'B.Sc Geology', 'B.Com Co-operation']
+    popularCourses: ['BA Economics', 'BA English Literature', 'B.Sc Geology', 'B.Com Co-operation'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Nattakom_Govt_College_Kottayam.jpg'
   },
   {
     id: 'gptc_pkd',
@@ -208,7 +244,9 @@ export const collegesData: College[] = [
     contactEmail: 'gptcpalakkad@gmail.com',
     website: 'https://www.gptcpalakkad.ac.in',
     address: 'Kodumbu, Palakkad - 678551',
-    popularCourses: ['Diploma in Instrument Technology', 'Diploma in Electronics & Comm', 'Diploma in Computer Engineering', 'Diploma in Civil Engineering']
+    popularCourses: ['Diploma in Instrument Technology', 'Diploma in Electronics & Comm', 'Diploma in Computer Engineering', 'Diploma in Civil Engineering'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Government_Polytechnic_College_Palakkad_building.jpg'
   },
   {
     id: 'gvhss_tvm',
@@ -219,7 +257,140 @@ export const collegesData: College[] = [
     contactEmail: 'gvhssg.pettah@gmail.com',
     website: 'https://vhse.kerala.gov.in',
     address: 'Pettah P.O, Thiruvananthapuram - 695024',
-    popularCourses: ['VHSE Travel & Tourism', 'VHSE Accountancy & Auditing', 'VHSE Cosmetology & Health']
+    popularCourses: ['VHSE Travel & Tourism', 'VHSE Accountancy & Auditing', 'VHSE Cosmetology & Health'],
+    category: 'Government',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Govt_Girls_HSS_Pettah_Trivandrum.jpg'
+  },
+  // PRIVATE COLLEGES
+  {
+    id: 'amrita_kollam',
+    name: 'Amrita School of Engineering, Amritapuri',
+    district: 'Kollam',
+    type: 'Engineering',
+    contactPhone: '0476-2801280',
+    contactEmail: 'ase.amritapuri@amrita.edu',
+    website: 'https://www.amrita.edu',
+    address: 'Amritapuri, Clappana P.O., Kollam - 690525',
+    popularCourses: ['B.Tech Computer Science & AI', 'B.Tech Electronics & Communication', 'B.Tech Cyber Security', 'B.Tech Mechanical'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Amrita_University_Amritapuri_campus.jpg'
+  },
+  {
+    id: 'rajagiri_ekm',
+    name: 'Rajagiri School of Engineering & Technology (RSET)',
+    district: 'Ernakulam',
+    type: 'Engineering',
+    contactPhone: '0484-2660999',
+    contactEmail: 'office@rajagiritech.ac.in',
+    website: 'https://www.rajagiritech.ac.in',
+    address: 'Rajagiri Valley, Kakkanad, Kochi, Ernakulam - 682039',
+    popularCourses: ['B.Tech Computer Science', 'B.Tech Artificial Intelligence & Data Science', 'B.Tech Information Technology', 'B.Tech Civil'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/RSET_Kochi_Campus_Main_Block.jpg'
+  },
+  {
+    id: 'fisat_ekm',
+    name: 'Federal Institute of Science and Technology (FISAT)',
+    district: 'Ernakulam',
+    type: 'Engineering',
+    contactPhone: '0484-2725272',
+    contactEmail: 'mail@fisat.ac.in',
+    website: 'https://www.fisat.ac.in',
+    address: 'Hormis Nagar, Mookkannoor, Angamaly, Ernakulam - 683577',
+    popularCourses: ['B.Tech Computer Science', 'B.Tech Electronics & Instrumentation', 'MCA Computer Applications', 'MBA Finance'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Fisat_entrance.JPG'
+  },
+  {
+    id: 'scms_ekm',
+    name: 'SCMS School of Engineering and Technology',
+    district: 'Ernakulam',
+    type: 'Engineering',
+    contactPhone: '0484-2623777',
+    contactEmail: 'sset@scmsgroup.org',
+    website: 'https://www.scmsgroup.org/sset',
+    address: 'Vidya Nagar, Palissery, Karukutty, Ernakulam - 683582',
+    popularCourses: ['B.Tech Mechanical Engineering', 'B.Tech Civil Engineering', 'B.Tech Computer Science', 'M.Tech Environmental Engineering'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/SCMS_School_of_Engineering_and_Technology_Entrance.jpg'
+  },
+  {
+    id: 'amal_jyothi_ktm',
+    name: 'Amal Jyothi College of Engineering, Kanjirappally',
+    district: 'Kottayam',
+    type: 'Engineering',
+    contactPhone: '04828-305500',
+    contactEmail: 'info@amaljyothi.ac.in',
+    website: 'https://www.amaljyothi.ac.in',
+    address: 'Kanjirappally, Koovappally P.O., Kottayam - 686518',
+    popularCourses: ['B.Tech Chemical Engineering', 'B.Tech Computer Science', 'B.Tech Metallurgy', 'B.Tech Food Technology'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/52/Amal_Jyothi_Central_Complex.jpg'
+  },
+  {
+    id: 'mace_ekm',
+    name: 'Mar Athanasius College of Engineering (MACE)',
+    district: 'Ernakulam',
+    type: 'Engineering',
+    contactPhone: '0485-2822363',
+    contactEmail: 'office@mace.ac.in',
+    website: 'https://www.mace.ac.in',
+    address: 'Kothamangalam College P.O., Ernakulam - 686666',
+    popularCourses: ['B.Tech Civil Engineering', 'B.Tech Computer Science', 'B.Tech Electronics & Comm', 'B.Tech Electrical & Electronics'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/77/MACE_Main_Block.jpg'
+  },
+  {
+    id: 'saintgits_ktm',
+    name: 'Saintgits College of Engineering, Kottayam',
+    district: 'Kottayam',
+    type: 'Engineering',
+    contactPhone: '0481-2569001',
+    contactEmail: 'engineering@saintgits.org',
+    website: 'https://saintgits.org',
+    address: 'Kottukulam Hills, Pathamuttom P.O., Kottayam - 686532',
+    popularCourses: ['B.Tech Computer Science & Systems', 'B.Tech Robotics and Automation', 'MBA Business Analytics', 'B.Tech Mechanical'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Saintgits_campus.JPG'
+  },
+  {
+    id: 'jubilee_med_tcr',
+    name: 'Jubilee Mission Medical College & Research Institute',
+    district: 'Thrissur',
+    type: 'Medical',
+    contactPhone: '0487-2421885',
+    contactEmail: 'jmmc@jmmc.ac.in',
+    website: 'https://www.jmmc.ac.in',
+    address: 'Bishop Alapatt Road, Jubilee Gardens, East Fort, Thrissur - 680005',
+    popularCourses: ['MBBS', 'MD General Medicine', 'B.Sc Nursing', 'DMLT Lab Technology'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Jubilee_Mission_Medical_College_and_Research_Institute.JPG'
+  },
+  {
+    id: 'teresas_ekm',
+    name: "St. Teresa's College (Autonomous), Ernakulam",
+    district: 'Ernakulam',
+    type: 'Arts & Science',
+    contactPhone: '0484-2351870',
+    contactEmail: 'principal@teresas.ac.in',
+    website: 'https://teresas.ac.in',
+    address: 'Park Avenue, Ernakulam - 682011',
+    popularCourses: ['BA Bharathanatyam', 'B.Sc Home Science', 'BA English Literature', 'B.Com Finance', 'B.Sc Computer Science'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/St_Teresas_College_Kochi_Main_Building_01.JPG'
+  },
+  {
+    id: 'mes_mampad',
+    name: 'M.E.S. Mampad College (Autonomous)',
+    district: 'Malappuram',
+    type: 'Arts & Science',
+    contactPhone: '04931-200387',
+    contactEmail: 'info@mesmampadcollege.edu.in',
+    website: 'https://mesmampadcollege.edu.in',
+    address: 'Mampad College P.O., Malappuram - 676542',
+    popularCourses: ['B.Sc Food Technology', 'BA English Literature', 'B.Com Finance', 'B.Sc Chemistry'],
+    category: 'Private',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/MES_Mampad_College_Main_Building.jpg'
   }
 ];
 
