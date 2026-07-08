@@ -378,6 +378,10 @@ export default function CollegeDirectorySection() {
                       alt={clg.name} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null; // Prevent infinite loop
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=60';
+                      }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent pointer-events-none" />
                     

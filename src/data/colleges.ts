@@ -12,7 +12,7 @@ export const collegesData: College[] = [
     address: 'Engineering College P.O, Sreekaryam, Thiruvananthapuram - 695016',
     popularCourses: ['B.Tech Computer Science', 'B.Tech Electronics & Comm', 'B.Tech Mechanical', 'B.Arch Architecture', 'B.Tech Civil'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/CET_main_building.JPG',
+    imageUrl: 'https://images.unsplash.com/photo-1562774053-701939374585?w=600&auto=format&fit=crop&q=60',
     lat: 8.5463,
     lng: 76.9063
   },
@@ -27,7 +27,7 @@ export const collegesData: College[] = [
     address: 'Park Avenue, Marine Drive, Ernakulam - 682011',
     popularCourses: ['BA Economics', 'BA English Literature', 'B.Sc Physics', 'B.Sc Chemistry', 'B.Com Finance'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Maharajas_college_ernakulam.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&auto=format&fit=crop&q=60',
     lat: 9.9723,
     lng: 76.2796
   },
@@ -42,7 +42,7 @@ export const collegesData: College[] = [
     address: 'Ramavarmapuram, Thrissur - 680009',
     popularCourses: ['B.Tech Computer Science', 'B.Tech Chemical Engineering', 'B.Tech Electrical & Electronics', 'B.Tech Production', 'B.Tech Civil'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Government_Engineering_College_Thrissur.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5c?w=600&auto=format&fit=crop&q=60',
     lat: 10.5524,
     lng: 76.2238
   },
@@ -57,7 +57,7 @@ export const collegesData: College[] = [
     address: 'College Road, Palakkad - 678001',
     popularCourses: ['B.Sc Mathematics', 'BA English', 'BA History', 'B.Com Co-operation', 'B.Sc Zoology'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Government_Victoria_College%2C_Palakkad_05.JPG',
+    imageUrl: 'https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=600&auto=format&fit=crop&q=60',
     lat: 10.7845,
     lng: 76.6558
   },
@@ -72,7 +72,7 @@ export const collegesData: College[] = [
     address: 'Dharmadam, Thalassery, Kannur - 670106',
     popularCourses: ['BA Malayalam', 'BA Political Science', 'BA History', 'B.Sc Physics', 'B.Sc Botany'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Brennen_College_Frontage.JPG',
+    imageUrl: 'https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?w=600&auto=format&fit=crop&q=60',
     lat: 11.7288,
     lng: 75.4851
   },
@@ -87,7 +87,7 @@ export const collegesData: College[] = [
     address: 'Medical College Junction, Kozhikode - 673008',
     popularCourses: ['MBBS', 'BDS Dentistry', 'B.Sc Nursing', 'Bachelor of Physiotherapy (BPT)'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Kozhikode_Medical_College_Main_Building.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&auto=format&fit=crop&q=60',
     lat: 11.2678,
     lng: 75.8368
   },
@@ -102,7 +102,7 @@ export const collegesData: College[] = [
     address: 'Medical College P.O, Thiruvananthapuram - 695011',
     popularCourses: ['MBBS', 'B.Pharm Pharmacy', 'B.Sc Nursing', 'B.Sc Optometry'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Trivandrum_Medical_College_old_block.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1584515901107-d1796d309225?w=600&auto=format&fit=crop&q=60',
     lat: 8.5255,
     lng: 76.9205
   },
@@ -117,7 +117,7 @@ export const collegesData: College[] = [
     address: 'Vattiyoorkavu, Thiruvananthapuram - 695013',
     popularCourses: ['Diploma in Computer Engineering', 'Diploma in Civil Engineering', 'Diploma in Mechanical Engineering', 'Diploma in Electrical & Electronics'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Central_Polytechnic_College_Vattiyoorkavu_Trivandrum.JPG',
+    imageUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=60',
     lat: 8.5230,
     lng: 76.9790
   },
@@ -132,7 +132,7 @@ export const collegesData: College[] = [
     address: 'HMT Road, Kalamassery, Ernakulam - 683104',
     popularCourses: ['Diploma in Chemical Engineering', 'Diploma in Automobile Engineering', 'Diploma in Mechanical Engineering', 'Diploma in Electronics'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Govt_Polytechnic_Kalamassery_Office.JPG',
+    imageUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&auto=format&fit=crop&q=60',
     lat: 10.0543,
     lng: 76.3278
   },
@@ -147,7 +147,7 @@ export const collegesData: College[] = [
     address: 'Madappally College P.O, Vadakara, Kozhikode - 673102',
     popularCourses: ['BA English', 'B.Com Finance', 'B.Sc Chemistry', 'B.Sc Physics', 'BA Economics'],
     category: 'Government',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Govt_College_Madappally_01.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&auto=format&fit=crop&q=60',
     lat: 11.6212,
     lng: 75.5898
   },

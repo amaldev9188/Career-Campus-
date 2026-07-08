@@ -20,7 +20,8 @@ import {
   Sparkles,
   Cpu,
   Lightbulb,
-  Loader2
+  Loader2,
+  Download
 } from 'lucide-react';
 
 interface QuizSectionProps {
@@ -89,6 +90,205 @@ export default function QuizSection({ profile, onNavigateToTab, onQuizCompleted 
   const [aiEvaluation, setAiEvaluation] = useState<any | null>(null);
   const [loadingEvaluation, setLoadingEvaluation] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const downloadEvaluationPDF = () => {
+    if (!aiEvaluation) return;
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert("Please allow popups to generate your PDF Counselor Report.");
+      return;
+    }
+
+    const studentName = profile?.name || "Student";
+    const district = profile?.district || "Kerala";
+    
+    const coursesHtml = aiEvaluation.localCourses?.map((crs: any) => `<li><strong>${crs.course}</strong> - <span style="font-size: 11px; color: #475569;">${crs.institutes}</span></li>`).join('') || '';
+    const careersHtml = aiEvaluation.hotCareers?.map((c: string) => `<li>${c}</li>`).join('') || '';
+    const roadmapHtml = aiEvaluation.keralaRoadmap?.map((step: any, idx: number) => `
+      <div style="margin-bottom: 20px; border-left: 2px solid #0d9488; padding-left: 15px; position: relative;">
+        <div style="font-size: 10px; text-transform: uppercase; color: #0d9488; font-weight: bold; letter-spacing: 1px;">${step.milestone || `Phase ${idx + 1}`}</div>
+        <h4 style="margin: 3px 0; font-size: 14px; font-weight: 800; color: #1e293b;">${step.pathway}</h4>
+        <p style="margin: 5px 0 0 0; font-size: 12px; color: #475569; line-height: 1.5;">${step.description}</p>
+      </div>
+    `).join('') || '';
+    const tipsHtml = aiEvaluation.tips?.map((tip: string) => `<li>${tip}</li>`).join('') || '';
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>CareerCompass Kerala - Counselor Report - ${studentName}</title>
+        <meta charset="utf-8" />
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;850&display=swap');
+          body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            margin: 40px;
+            background-color: #fff;
+          }
+          .header {
+            text-align: center;
+            border-bottom: 3px solid #0d9488;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+          }
+          .header h1 {
+            color: #0f766e;
+            font-size: 28px;
+            margin: 0;
+            font-weight: 850;
+            letter-spacing: -0.5px;
+          }
+          .header p {
+            color: #64748b;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin: 5px 0 0 0;
+          }
+          .meta-grid {
+            display: grid;
+            grid-template-cols: repeat(2, 1fr);
+            gap: 15px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+          }
+          .meta-item {
+            font-size: 13px;
+          }
+          .meta-label {
+            color: #64748b;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 1px;
+          }
+          .meta-value {
+            font-weight: 850;
+            color: #0f172a;
+            margin-top: 2px;
+          }
+          .section {
+            margin-bottom: 30px;
+          }
+          .section-title {
+            font-size: 14px;
+            font-weight: 850;
+            color: #0f766e;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+          .best-stream-box {
+            background-color: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+          }
+          .grid-2 {
+            display: grid;
+            grid-template-cols: repeat(2, 1fr);
+            gap: 20px;
+          }
+          ul {
+            margin: 0;
+            padding-left: 20px;
+          }
+          li {
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #334155;
+            font-weight: 600;
+          }
+          .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 11px;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+          }
+          @media print {
+            body { margin: 20px; }
+            .no-print { display: none; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="no-print" style="text-align: center; margin-bottom: 20px; background: #e0f2fe; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; color: #0369a1;">
+          🖨️ Press <strong>Ctrl + P</strong> or click standard Print tools if print dialog doesn't load automatically. Set "Destination" to <strong>Save as PDF</strong>.
+        </div>
+
+        <div class="header">
+          <h1>CAREER COMPASS KERALA</h1>
+          <p>AI-Powered Higher Education & Aptitude Counseling Report</p>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-item">
+            <div class="meta-label">Student Name</div>
+            <div class="meta-value">${studentName}</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Target District</div>
+            <div class="meta-value">${district}</div>
+          </div>
+          <div class="meta-item" style="grid-column: span 2;">
+            <div class="meta-label">Aptitude Profile Assessment</div>
+            <div class="meta-value" style="font-size: 12.5px; line-height: 1.5; font-weight: normal; margin-top: 5px;">${aiEvaluation.analysis || ''}</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="section">
+            <div class="section-title">Emerging Careers</div>
+            <ul>${careersHtml}</ul>
+          </div>
+          <div class="section">
+            <div class="section-title">Top Degree Courses & Institutes in Kerala</div>
+            <ul>${coursesHtml}</ul>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Kerala-Specific Academic Roadmap</div>
+          <div style="margin-top: 15px;">
+            ${roadmapHtml}
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Immediate Next Steps & Tips</div>
+          <ul>${tipsHtml}</ul>
+        </div>
+
+        <div class="footer">
+          Generated securely on ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })} via Career Compass Kerala. All rights reserved.
+        </div>
+
+        <script>
+          window.onload = function() {
+            setTimeout(function() {
+              window.print();
+            }, 500);
+          };
+        </script>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+  };
 
   // Merge default questions with AI-generated questions when Adaptive Mode is active
   const activeQuestions = useAIQuestions && aiQuestions.length > 0 
@@ -576,7 +776,7 @@ export default function QuizSection({ profile, onNavigateToTab, onQuizCompleted 
           <div className="bg-white rounded-[32px] border border-slate-100 shadow-sm p-6 md:p-8 space-y-6 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-32 h-32 bg-teal-50 rounded-full blur-3xl pointer-events-none" />
             
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 gap-3">
               <div className="flex items-center gap-2">
                 <div className="p-2 bg-teal-50 rounded-xl text-teal-600">
                   <Sparkles className="w-5 h-5 fill-teal-100 animate-pulse" />
@@ -588,6 +788,15 @@ export default function QuizSection({ profile, onNavigateToTab, onQuizCompleted 
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Custom higher education matching powered by Gemini</p>
                 </div>
               </div>
+              {!loadingEvaluation && aiEvaluation && (
+                <button
+                  onClick={downloadEvaluationPDF}
+                  className="px-4 py-2 bg-slate-950 hover:bg-slate-850 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <Download className="w-4 h-4" />
+                  Download PDF Report
+                </button>
+              )}
             </div>
 
             {loadingEvaluation && (

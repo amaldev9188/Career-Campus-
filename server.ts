@@ -9,15 +9,40 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
-// Initialize Google Gen AI securely with environment variable key
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
+// Lazy-initialize Google Gen AI securely to prevent crashes on startup if the API key is missing.
+let aiClient: GoogleGenAI | null = null;
+
+function getAI(): GoogleGenAI {
+  if (!aiClient) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY environment variable is required but is missing.");
     }
+    aiClient = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
   }
-});
+  return aiClient;
+}
+
+// Clean markdown code blocks and whitespace from LLM JSON responses.
+function cleanJsonString(str: string): string {
+  let cleaned = str.trim();
+  if (cleaned.startsWith("```json")) {
+    cleaned = cleaned.substring(7);
+  } else if (cleaned.startsWith("```")) {
+    cleaned = cleaned.substring(3);
+  }
+  if (cleaned.endsWith("```")) {
+    cleaned = cleaned.substring(0, cleaned.length - 3);
+  }
+  return cleaned.trim();
+}
 
 // Configure JSON body parsing
 app.use(express.json());
@@ -55,7 +80,7 @@ app.post("/api/ai/quiz-evaluation", async (req, res) => {
 
     Please generate a personalized analysis, a custom Kerala academic roadmap, high-demand careers, specific local courses in Kerala (focus on government/private colleges or entrance exams like KEAM, LBS, CAT), and practical advice. Use language that is warm, motivating, and specific to the Kerala context (e.g., DHSE Kerala boards, state universities like MG University, Kerala University, Calicut University, KTU, etc.).`;
 
-    const response = await ai.models.generateContent({
+    const response = await getAI().models.generateContent({
       model: "gemini-3.5-flash",
       contents: prompt,
       config: {
@@ -92,7 +117,7 @@ app.post("/api/ai/quiz-evaluation", async (req, res) => {
       }
     });
 
-    const jsonText = response.text ? response.text.trim() : "{}";
+    const jsonText = response.text ? cleanJsonString(response.text) : "{}";
     const evaluationData = JSON.parse(jsonText);
     res.json(evaluationData);
   } catch (error: any) {
@@ -122,7 +147,7 @@ app.post("/api/ai/quiz-questions", async (req, res) => {
 
     Return a clean JSON array containing exactly 3 custom question objects. Each object must strictly match the response schema.`;
 
-    const response = await ai.models.generateContent({
+    const response = await getAI().models.generateContent({
       model: "gemini-3.5-flash",
       contents: prompt,
       config: {
@@ -161,7 +186,7 @@ app.post("/api/ai/quiz-questions", async (req, res) => {
       }
     });
 
-    const jsonText = response.text ? response.text.trim() : "[]";
+    const jsonText = response.text ? cleanJsonString(response.text) : "[]";
     const questionsData = JSON.parse(jsonText);
     res.json(questionsData);
   } catch (error: any) {
@@ -204,7 +229,7 @@ app.post("/api/ai/general-chat", async (req, res) => {
       parts: [{ text: message }]
     });
 
-    const response = await ai.models.generateContent({
+    const response = await getAI().models.generateContent({
       model: "gemini-3.5-flash",
       contents: contents,
       config: {
@@ -249,7 +274,7 @@ app.post("/api/ai/discovery-wizard", async (req, res) => {
 
     Return ONLY a JSON object matching the requested schema.`;
 
-    const response = await ai.models.generateContent({
+    const response = await getAI().models.generateContent({
       model: "gemini-3.5-flash",
       contents: prompt,
       config: {
@@ -297,7 +322,7 @@ app.post("/api/ai/discovery-wizard", async (req, res) => {
       }
     });
 
-    const jsonText = response.text ? response.text.trim() : "{}";
+    const jsonText = response.text ? cleanJsonString(response.text) : "{}";
     res.json(JSON.parse(jsonText));
   } catch (error: any) {
     console.error("Error in /api/ai/discovery-wizard:", error);
@@ -320,7 +345,7 @@ app.post("/api/ai/scholarship-check", async (req, res) => {
     Recommend real, active state-level or national scholarships available to Kerala students (such as State Merit Scholarship, Post Matric Scholarship, Central Sector Scheme, CH Muhammed Koya Scholarship for girls, Single Girl Child, etc.).
     For each, state why they are eligible, maximum annual grant amount, and the online application website.`;
 
-    const response = await ai.models.generateContent({
+    const response = await getAI().models.generateContent({
       model: "gemini-3.5-flash",
       contents: prompt,
       config: {
@@ -348,7 +373,7 @@ app.post("/api/ai/scholarship-check", async (req, res) => {
       }
     });
 
-    const jsonText = response.text ? response.text.trim() : "{}";
+    const jsonText = response.text ? cleanJsonString(response.text) : "{}";
     res.json(JSON.parse(jsonText));
   } catch (error: any) {
     console.error("Error in /api/ai/scholarship-check:", error);

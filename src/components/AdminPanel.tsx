@@ -762,14 +762,6 @@ export default function AdminPanel() {
                     </div>
                     <div className="flex gap-2">
                       <button
-                        onClick={handleSyncBaselineColleges}
-                        className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer border border-slate-200 shrink-0"
-                        title="Reset & Sync default colleges to real-life images"
-                      >
-                        <Sparkles className="w-4 h-4 text-teal-600 animate-pulse" />
-                        Sync Real Images
-                      </button>
-                      <button
                         onClick={handleOpenAddCollege}
                         className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-md shadow-teal-600/10 shrink-0"
                       >
@@ -837,6 +829,10 @@ export default function AdminPanel() {
                                       alt="" 
                                       className="w-full h-full object-cover"
                                       referrerPolicy="no-referrer"
+                                      onError={(e) => {
+                                        e.currentTarget.onerror = null; // Prevent infinite loop
+                                        e.currentTarget.src = 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=120&auto=format&fit=crop&q=60';
+                                      }}
                                     />
                                   </div>
                                   <div className="space-y-0.5 min-w-0">

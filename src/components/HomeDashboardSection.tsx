@@ -14,7 +14,6 @@ import {
   ArrowRight, 
   CheckCircle, 
   Clock, 
-  Play, 
   Layers, 
   Users, 
   MessageSquare,
@@ -238,14 +237,6 @@ export default function HomeDashboardSection({
             >
               <Compass className="w-4 h-4 text-teal-600 animate-spin" style={{ animationDuration: '4s' }} />
               {text.exploreBtn}
-            </button>
-
-            <button
-              onClick={() => alert("CareerCompass demo video will launch soon! Follow our 'Start Here' tab for step-by-step guidance.")}
-              className="px-5 py-3 bg-slate-800/80 hover:bg-slate-700/80 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-1.5 border border-slate-700 cursor-pointer"
-            >
-              <Play className="w-4.5 h-4.5 text-teal-400 fill-teal-400" />
-              {text.watchDemo}
             </button>
           </div>
         </div>
