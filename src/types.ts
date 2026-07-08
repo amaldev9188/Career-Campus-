@@ -59,6 +59,8 @@ export interface College {
   notes?: string;
   imageUrl?: string;
   category?: 'Government' | 'Private';
+  lat?: number;
+  lng?: number;
 }
 
 export interface AdmissionDeadline {

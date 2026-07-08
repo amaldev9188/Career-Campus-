@@ -10,6 +10,9 @@ import CareerMapSection from './components/CareerMapSection';
 import CollegeDirectorySection from './components/CollegeDirectorySection';
 import ResourceSection from './components/ResourceSection';
 import FeatureListSection from './components/FeatureListSection';
+import HomeDashboardSection from './components/HomeDashboardSection';
+import DiscoveryWizardSection from './components/DiscoveryWizardSection';
+import CompassAICoach from './components/CompassAICoach';
 import AuthScreen from './components/AuthScreen';
 import AdminChangePassword from './components/AdminChangePassword';
 import AdminPanel from './components/AdminPanel';
@@ -29,7 +32,8 @@ import {
   GraduationCap,
   Shield,
   LogOut,
-  Clock
+  Clock,
+  Bot
 } from 'lucide-react';
 
 export default function App() {
@@ -38,8 +42,11 @@ export default function App() {
   const [userProfile, setUserProfile] = useState<any>(null);
   const [authChecking, setAuthChecking] = useState(true);
 
-  // Active Navigation Tab
-  const [activeTab, setActiveTab] = useState<string>('profile');
+  // Active Navigation Tab (Defaults to Home Dashboard)
+  const [activeTab, setActiveTab] = useState<string>('home');
+
+  // Active language state across application
+  const [activeLanguage, setActiveLanguage] = useState<'EN' | 'ML'>('EN');
 
   // Logout confirmation state
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -50,8 +57,8 @@ export default function App() {
       if (userProfile.role === 'admin') {
         setActiveTab('admin_panel');
       } else {
-        if (!['profile', 'quiz', 'careers', 'colleges', 'resources', 'features'].includes(activeTab)) {
-          setActiveTab('profile');
+        if (!['home', 'wizard', 'chat', 'profile', 'quiz', 'careers', 'colleges', 'resources', 'features'].includes(activeTab)) {
+          setActiveTab('home');
         }
       }
     }
@@ -248,11 +255,14 @@ export default function App() {
     }
 
     return [
+      { id: 'home', label: 'Home Dashboard', icon: Compass, status: 'Overview' },
+      { id: 'wizard', label: 'AI Discovery Wizard', icon: Sparkles, status: 'Start Here' },
+      { id: 'chat', label: 'Ask Compass AI', icon: Bot, status: 'Bilingual Coach' },
       { id: 'profile', label: 'Student Profile', icon: User, status: profile.name ? 'Completed' : 'Setup Required' },
       { id: 'quiz', label: 'Aptitude Quiz', icon: BrainCircuit, status: recommendedStream ? `Rec: ${recommendedStream}` : 'Not Started' },
       { id: 'careers', label: 'Career Map', icon: Map, status: 'Interactive Paths' },
       { id: 'colleges', label: 'Colleges Directory', icon: School, status: 'Government Lists' },
-      { id: 'resources', label: 'Resources & Timelines', icon: Calendar, status: 'Entrance Hub' },
+      { id: 'resources', label: 'Guidance Hub', icon: Calendar, status: 'Admissions & Scholarships' },
       { id: 'features', label: 'Platform Blueprint', icon: Sparkles, status: '35+ Core Modules' }
     ];
   };
@@ -444,6 +454,32 @@ export default function App() {
             transition={{ duration: 0.15 }}
             className={`w-full h-full ${userProfile?.role === 'admin' ? 'pb-4' : 'pb-16'} md:pb-0`}
           >
+            {activeTab === 'home' && (
+              <HomeDashboardSection 
+                profile={profile} 
+                userProfile={userProfile}
+                recommendedStream={recommendedStream}
+                activeLanguage={activeLanguage}
+                onLanguageToggle={() => setActiveLanguage(prev => prev === 'EN' ? 'ML' : 'EN')}
+                onNavigateToTab={(tabId) => setActiveTab(tabId)}
+              />
+            )}
+
+            {activeTab === 'wizard' && (
+              <DiscoveryWizardSection 
+                profile={profile}
+                userProfile={userProfile}
+                onNavigateToTab={(tabId) => setActiveTab(tabId)}
+              />
+            )}
+
+            {activeTab === 'chat' && (
+              <CompassAICoach 
+                profile={profile}
+                activeLanguage={activeLanguage}
+              />
+            )}
+
             {activeTab === 'profile' && (
               <ProfileSection 
                 profile={profile} 
@@ -470,11 +506,7 @@ export default function App() {
             )}
             
             {activeTab === 'resources' && (
-              <ResourceSection 
-                deadlines={[]} // Pass empty list as ResourceSection handles its own Firestore query dynamically
-                onSaveDeadlines={() => {}}
-                onResetDeadlines={() => {}}
-              />
+              <ResourceSection />
             )}
 
             {activeTab === 'features' && (
@@ -505,7 +537,10 @@ export default function App() {
               >
                 <Icon className="w-5 h-5 shrink-0" />
                 <span className="text-[9px] font-semibold mt-0.5 truncate max-w-[65px]">
-                  {item.id === 'profile' ? 'Profile' : 
+                  {item.id === 'home' ? 'Home' :
+                   item.id === 'wizard' ? 'Wizard' :
+                   item.id === 'chat' ? 'Coach' :
+                   item.id === 'profile' ? 'Profile' : 
                    item.id === 'quiz' ? 'Quiz' : 
                    item.id === 'careers' ? 'Careers' : 
                    item.id === 'colleges' ? 'Colleges' : 
