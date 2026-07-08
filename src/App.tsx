@@ -94,7 +94,8 @@ export default function App() {
               age: data.age || '',
               currentClass: data.currentClass || '',
               district: data.district || '',
-              interests: data.interests || []
+              interests: data.interests || [],
+              photoURL: data.photoURL || ''
             });
             if (data.recommendedStream) {
               setRecommendedStream(data.recommendedStream);
@@ -119,7 +120,8 @@ export default function App() {
               age: '',
               currentClass: '',
               district: '',
-              interests: []
+              interests: [],
+              photoURL: ''
             });
           }
         } catch (err) {
@@ -147,7 +149,8 @@ export default function App() {
           age: updatedProfile.age,
           district: updatedProfile.district,
           currentClass: updatedProfile.currentClass,
-          interests: updatedProfile.interests
+          interests: updatedProfile.interests,
+          photoURL: updatedProfile.photoURL || ''
         }, { merge: true });
         
         // Update userProfile state

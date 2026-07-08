@@ -4,6 +4,7 @@ export interface StudentProfile {
   currentClass: 'Class 10' | 'Class 12' | '';
   district: string;
   interests: string[];
+  photoURL?: string;
 }
 
 export interface QuizChoice {
