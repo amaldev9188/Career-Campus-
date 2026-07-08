@@ -1,0 +1,73 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account containing demographic details and career compass metadata.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["student", "admin"] },
+        "age": { "type": "string" },
+        "district": { "type": "string" },
+        "interests": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "currentClass": { "type": "string" },
+        "isFirstLogin": { "type": "boolean" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "College": {
+      "title": "College",
+      "description": "Government college details, location, and courses.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "district": { "type": "string" },
+        "type": { "type": "string" },
+        "contactPhone": { "type": "string" },
+        "contactEmail": { "type": "string" },
+        "website": { "type": "string" },
+        "address": { "type": "string" },
+        "popularCourses": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["id", "name", "district", "type"]
+    },
+    "Deadline": {
+      "title": "Admission Deadline",
+      "description": "Important timeline date and link for admissions.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "portal": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string", "enum": ["Open", "Upcoming", "Closed"] },
+        "link": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["id", "title", "portal", "date", "status"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Collection of user profiles."
+    },
+    "colleges/{collegeId}": {
+      "schema": { "$ref": "#/entities/College" },
+      "description": "Collection of government colleges."
+    },
+    "deadlines/{deadlineId}": {
+      "schema": { "$ref": "#/entities/Deadline" },
+      "description": "Collection of admission deadlines and portals."
+    }
+  }
+}

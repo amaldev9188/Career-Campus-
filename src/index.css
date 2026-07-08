@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+}
+
+.serif-italic {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.letter-spacing-wide {
+  letter-spacing: 0.15em;
+}
+
+/* Custom scrollbar helpers */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Spin animation for compass */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.career-line {
+  position: absolute;
+  width: 2px;
+  background: repeating-linear-gradient(to bottom, transparent, transparent 4px, #0d9488 4px, #0d9488 8px);
+  z-index: 0;
+}
+
+.path-node {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  border-radius: 12px;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+}
+

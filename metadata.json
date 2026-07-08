@@ -1,0 +1,6 @@
+{
+  "name": "Career Compass Kerala",
+  "description": "An interactive career guidance and pathway discovery platform for high school students in Kerala.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
